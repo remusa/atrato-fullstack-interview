@@ -1,10 +1,11 @@
 const express = require("express");
-export const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const { getNewUserId, getCreditCard } = require("./utils");
 
 require("dotenv").config();
+
+const app = express();
 
 const PORT = 5000;
 
@@ -41,7 +42,7 @@ app.use((req, res, next) => {
 });
 
 app.get("/v1/users", (req, res) => {
-	res.status(200).json({ data: users, total: users.length });
+	res.status(200).json({ count: users.length, data: users });
 });
 
 app.get("/v1/users/:id", (req, res) => {
@@ -54,11 +55,21 @@ app.post("/v1/users", async (req, res) => {
 	const { user } = req.body;
 	const id = getNewUserId();
 	const creditCardData = await getCreditCard();
-	const newUser = { id, ...user, cardInfo: creditCardData };
+	const newUser = {
+		id,
+		...user,
+		cardInfo: {
+			number: creditCardData.cardNumber,
+			type: creditCardData.type,
+			cvv: creditCardData.cvv,
+			pin: creditCardData.pin,
+			expiration: creditCardData.date,
+		},
+	};
 	users = users.concat(newUser);
 	res.status(201).json({
 		message: "User created",
-		id: newUser.id,
+		data: newUser,
 	});
 });
 
@@ -72,3 +83,5 @@ app.delete("/v1/users/:id", (req, res) => {
 	});
 	res.status(200).json({ message: `User with id: ${id} succesfully deleted` });
 });
+
+exports.app = app;
