@@ -12,7 +12,7 @@ export function Users() {
 
 	// const [user, setUser] = React.useState({});
 
-	React.useEffect(() => {
+	function fetchUsers() {
 		api
 			.getUsers()
 			.then((res) => {
@@ -22,6 +22,10 @@ export function Users() {
 				console.log("🚀 ~ React.useEffect ~ e:", e);
 			})
 			.finally(() => {});
+	}
+
+	React.useEffect(() => {
+		fetchUsers();
 	}, []);
 
 	// async function createUser() {
@@ -53,6 +57,15 @@ export function Users() {
 						<p>{formatter.format(new Date(user.birthday))}</p>
 						<p>{user.phone}</p>
 						<p>{user.assignedAnalyst}</p>
+						<button
+							type="button"
+							onClick={async () => {
+								await api.deleteUser(user.id);
+								fetchUsers();
+							}}
+						>
+							Delete user
+						</button>
 					</li>
 				);
 			})}
