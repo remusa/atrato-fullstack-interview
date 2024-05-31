@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const { getNewUserId, getCreditCard } = require("./utils");
 
 require("dotenv").config();
@@ -13,6 +14,13 @@ let users = data;
 app.listen(5000, () => {
 	console.log(`Server started on port ${PORT}`);
 });
+
+app.use(
+	cors({
+		origin: "http://localhost:3000",
+		optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+	}),
+);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
