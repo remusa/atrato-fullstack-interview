@@ -1,0 +1,15 @@
+meta {
+  name: getUsers
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:5000/v1/users
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: abc123
+}

@@ -1,0 +1,35 @@
+meta {
+  name: createUser
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:5000/v1/users
+  body: json
+  auth: bearer
+}
+
+query {
+  : 
+}
+
+auth:bearer {
+  token: abc123
+}
+
+body:json {
+  {
+    "user": {
+      "email": "test@atratopago.com",
+      "phone": "+523333333333",
+      "name": "Pablo",
+      "middleName": null,
+      "fLastName": "Perez",
+      "sLastName": "Ramirez",
+      "birthday": "1990-04-23",
+      "status": "PENDIENTE",
+      "assignedAnalyst": "David"
+    }
+  }
+}
