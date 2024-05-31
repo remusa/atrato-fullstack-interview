@@ -1,14 +1,14 @@
 const express = require("express");
-const app = express();
+export const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const { getNewUserId, getCreditCard } = require("./utils");
 
 require("dotenv").config();
 
-const data = require("../data/data.json");
 const PORT = 5000;
 
+const data = require("../data/data.json");
 let users = data;
 
 app.listen(5000, () => {
@@ -44,20 +44,29 @@ app.get("/v1/users", (req, res) => {
 	res.status(200).json({ data: users, total: users.length });
 });
 
+app.get("/v1/users/:id", (req, res) => {
+	const { id } = req.params;
+	const user = users.find((u) => Number.parseInt(u.id) === Number.parseInt(id));
+	res.status(200).json(user);
+});
+
 app.post("/v1/users", async (req, res) => {
-	const data = req.body;
-	const { user } = data;
+	const { user } = req.body;
 	const id = getNewUserId();
 	const creditCardData = await getCreditCard();
 	const newUser = { id, ...user, cardInfo: creditCardData };
 	users = users.concat(newUser);
 	res.status(201).json({
 		message: "User created",
+		id: newUser.id,
 	});
 });
 
 app.delete("/v1/users/:id", (req, res) => {
 	const { id } = req.params;
+	if (!id) {
+		res.status(400).json({ message: "Invalid user id" });
+	}
 	users = users.filter((user) => {
 		return Number.parseInt(user.id) !== Number.parseInt(id);
 	});
