@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as api from "../lib/api";
+import { CreateUser } from "./CreateUser";
 
 // TODO: format date
 const formatter = new Intl.DateTimeFormat("es-MX", {
@@ -8,9 +9,6 @@ const formatter = new Intl.DateTimeFormat("es-MX", {
 
 export function Users() {
 	const [users, setUsers] = React.useState([]);
-	console.log("🚀 ~ Users ~ users:", users);
-
-	// const [user, setUser] = React.useState({});
 
 	function fetchUsers() {
 		api
@@ -28,16 +26,16 @@ export function Users() {
 		fetchUsers();
 	}, []);
 
-	// async function createUser() {
-	// 	api
-	// 		.createUser(user)
-	// 		.then((res) => {
-	// 			console.log("user created");
-	// 		})
-	// 		.catch((e) => {
-	// 			console.error(`Error creating user: ${e}`);
-	// 		});
-	// }
+	function createUser() {
+		api
+			.createUser(user)
+			.then((res) => {
+				console.log("user created");
+			})
+			.catch((e) => {
+				console.error(`Error creating user: ${e}`);
+			});
+	}
 
 	// if (loading) {
 	// 	return <div>Loading...</div>;
@@ -70,11 +68,7 @@ export function Users() {
 				);
 			})}
 
-			{/* <form>
-				<div>
-					<input type="text" value={user} />
-				</div>
-			</form> */}
+			<CreateUser fetchUsers={fetchUsers} />
 		</ul>
 	);
 }

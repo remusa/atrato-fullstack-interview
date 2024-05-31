@@ -21,6 +21,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:server": "vitest",
     "eject": "react-scripts eject",
     "backend": "node ./node_modules/nodemon/bin/nodemon.js backend/server.js"
   },
@@ -44,5 +45,9 @@
   },
   "volta": {
     "node": "16.20.2"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0",
+    "vitest": "^1.6.0"
   }
 }

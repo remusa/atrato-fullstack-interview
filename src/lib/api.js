@@ -18,20 +18,20 @@ export async function getUsers() {
 	}
 }
 
-// export async function createUser(user) {
-// 	try {
-// 		const response = await fetch(`${BACKEND_URL}/users`, {
-// 			method: "POST",
-// 			headers: HEADERS,
-// 			body: { user },
-// 		});
-// 		const data = await response.json();
-// 		console.log(data);
-// 		return data;
-// 	} catch (e) {
-// 		console.error(`Error creating user: ${e.message}`);
-// 	}
-// }
+export async function createUser(user) {
+	try {
+		const response = await fetch(`${BACKEND_URL}/users`, {
+			method: "POST",
+			headers: HEADERS,
+			body: { user },
+		});
+		const data = await response.json();
+		console.log(data);
+		return data;
+	} catch (e) {
+		console.error(`Error creating user: ${e.message}`);
+	}
+}
 
 export async function deleteUser(userId) {
 	try {
