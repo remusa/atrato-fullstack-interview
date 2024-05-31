@@ -1,5 +1,7 @@
 const { default: axios } = require("axios");
 
+require("dotenv").config();
+
 function getNewUserId() {
 	const id = Math.floor(Math.random(0, 1) * 1000);
 	return id;
