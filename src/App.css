@@ -46,3 +46,8 @@
 .user-card {
   border: 1px solid crimson;
 }
+
+.user-create-form {
+  display: flex;
+  flex-direction: column;
+}

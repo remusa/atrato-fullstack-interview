@@ -10,10 +10,10 @@ import { Users } from "./components/Users";
 - [ ]  Se tiene buen manejo de errores y pantallas de carga.
 */
 
-const USER_STATUS = Object.freeze({
-	PENDIENTE: { status: "PENDIENTE" },
-	EN_PROCESO: { status: "EN_PROCESO" },
-	COMPLETADO: { stauts: "COMPLETADO" },
+export const USER_STATUS = Object.freeze({
+	PENDIENTE: { value: "PENDIENTE", label: "Pendiente" },
+	EN_PROCESO: { value: "EN_PROCESO", label: "En Proceso" },
+	COMPLETADO: { value: "COMPLETADO", label: "Completado" },
 });
 
 function App() {

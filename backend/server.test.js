@@ -1,24 +1,10 @@
-import { faker } from "@faker-js/faker";
 import dotenv from "dotenv";
 import request from "supertest";
 import { beforeAll, describe, expect, test } from "vitest";
+import { createMockUser } from "../src/lib/utils";
 import { app } from "./server";
 
 dotenv.config();
-
-function createMockUser() {
-	return {
-		email: faker.internet.email(),
-		phone: faker.phone.number(),
-		name: faker.person.firstName(),
-		middleName: faker.person.middleName(),
-		fLastName: faker.person.lastName(),
-		sLastName: faker.person.lastName(),
-		birthday: faker.date.birthdate(),
-		status: "EN_PROCESO",
-		assignedAnalyst: faker.person.firstName(),
-	};
-}
 
 const HEADERS = {
 	Accept: "application/json",
@@ -67,3 +53,5 @@ describe("CREATE user", () => {
 		expect(response.body.data.cardInfo.expiration).not.toBeUndefined();
 	});
 });
+
+exports.createMockUser = createMockUser;
